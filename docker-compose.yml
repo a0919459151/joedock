@@ -1,0 +1,55 @@
+networks:
+  local:
+    driver: ${NETWORKS_DRIVER}
+
+volumes:
+  mssql-data:
+  mysql-data:
+  mongo-data:
+  redis-data:
+
+services:
+  ### MSSQL #################################################
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "${MSSQL_PORT}:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ${MSSQL_PASSWORD}
+    volumes:
+      - mssql-data:/data
+    networks:
+      - local
+
+  ### MySQL #################################################
+  mysql:
+    image: mysql:latest
+    ports:
+      - "${MYSQL_PORT}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - local
+  
+  ### Mongo #################################################
+  mongo:
+    image: mongo:latest
+    ports:
+      - "${MONGODB_PORT}:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - local
+
+  ### Redis #################################################
+  redis:
+    image: redis:latest
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - local
