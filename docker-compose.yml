@@ -13,6 +13,7 @@ services:
   ### MSSQL #################################################
   mssql:
     image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql
     ports:
       - "${MSSQL_PORT}:1433"
     environment:
@@ -26,6 +27,7 @@ services:
   ### MySQL #################################################
   mysql:
     image: mysql:latest
+    container_name: mysql
     ports:
       - "${MYSQL_PORT}:3306"
     environment:
@@ -38,6 +40,7 @@ services:
   ### PostgreSQL ############################################
   psql:
     image: postgres:latest
+    container_name: postgres
     ports:
       - "${POSTGRES_PORT}:5432"
     environment:
@@ -50,6 +53,7 @@ services:
   ### Mongo #################################################
   mongo:
     image: mongo:latest
+    container_name: mongo
     ports:
       - "${MONGODB_PORT}:27017"
     volumes:
@@ -59,7 +63,7 @@ services:
 
   ### Redis #################################################
   redis:
-    image: redis:latest
+    image: redis:latestz
     ports:
       - "${REDIS_PORT}:6379"
     volumes:
